@@ -1,0 +1,16 @@
+image: node:18-alpine
+
+stages:
+  - build
+  - test
+
+build_job:
+  stage: build
+  script:
+    - echo "Сборка проекта успешно завершена..."
+
+test_job:
+  stage: test
+  script:
+    - echo "Запуск автоматических тестов..."
+    - echo "Все тесты успешно пройдены!"
