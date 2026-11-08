@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Сборка проекта в Jenkins...'
+                sh 'node -v'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Запуск тестов внутри Jenkins-агента...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Успешное развертывание приложения!'
+            }
+        }
+    }
+}
