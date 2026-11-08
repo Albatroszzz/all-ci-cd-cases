@@ -133,3 +133,26 @@ git add .github/workflows/ci.yml README.md
 # Фиксация изменений
 git commit -m "Case 6: Fix YAML syntax and configure Mail.ru SMTP notifications"
 git push origin main
+```
+## Кейс 6: Настройка автоматических уведомлений по почте (Pipeline Notifications)
+
+### 1. Описание проделанной работы:
+1. **Генерация пароля приложения:** В сервисе Mail.ru (`id.mail.ru` -> раздел «Безопасность» -> «Пароли для внешних приложений») создан специальный 16-значный пароль для внешних приложений для безопасной аутентификации по SMTP.
+2. **Конфигурация секретов в GitHub:** В настройках репозитория (`Settings -> Secrets and variables -> Actions`) добавлены переменные окружения:
+   * `MAIL_USERNAME` — электронная почта отправителя (`artemeva.anastasya@inbox.ru`).
+   * `MAIL_PASSWORD` — сгенерированный пароль приложения Mail.ru.
+3. **Добавление шага отправки в воркфлоу:** В файл `.github/workflows/ci.yml` интегрирован экшен `dawidd6/action-send-mail@v3` с использованием SSL-порта 465 и SMTP-сервера `smtp.mail.ru`.
+4. **Гарантированное выполнение:** Добавлено условие `if: always()`, чтобы статус сборки (`${{ job.status }}`) отправлялся на почту независимо от успешности предшествующих шагов пайплайна.
+
+### 2. Использованные команды:
+```bash
+# Проверка измененных файлов
+git status
+
+# Индексация обновленного файла конфигурации
+git add .github/workflows/ci.yml
+
+# Фиксация и отправка изменений на GitHub
+git commit -m "Case 6: Add email notification via Mail.ru SMTP"
+git push origin main
+```
