@@ -110,3 +110,26 @@ docker build -t my-app:latest .
 git add Dockerfile README.md
 git commit -m "Case 4: Add Dockerfile and CI/CD pipeline integration"
 git push origin main
+```
+## Кейс 6: Настройка уведомлений о статусе пайплайна/
+
+### 1. Описание проделанной работы (Алгоритм):
+1. **Настройка SMTP-доступа:** В параметрах безопасности почтового сервиса Mail.ru (`id.mail.ru`) сгенерирован специальный пароль для внешних приложений для безопасного подключения сторонних сервисов по протоколу SMTP.
+2. **Конфигурация секретов GitHub:** В настройках репозитория (`Settings -> Secrets and variables -> Actions`) созданы защищенные переменные окружения:
+   * `MAIL_USERNAME` — электронная почта отправителя (`artemeva.anastasya@inbox.ru`).
+   * `MAIL_PASSWORD` — сгенерированный 16-значный пароль приложения.
+3. **Модификация воркфлоу GitHub Actions:** В файл `.github/workflows/ci.yml` добавлен финальный шаг `Send Email Notification` с использованием экшена `dawidd6/action-send-mail@v3`.
+4. **Настройка выравнивания YAML:** Исправлена структура отступов в `ci.yml` (выравнивание блоков `steps` и `with`), что устранило синтаксическую ошибку `Invalid workflow file`.
+5. **Гарантия выполнения:** Для шага отправки почты задано условие `if: always()`, обеспечивающее отправку уведомления о статусе сборки (`${{ job.status }}`) как при успешном выполнении, так и при сбоях.
+
+### 2. Использованные команды:
+```bash
+# Проверка статуса измененных файлов
+git status
+
+# Добавление конфигурации воркфлоу и отчета в индекс
+git add .github/workflows/ci.yml README.md
+
+# Фиксация изменений
+git commit -m "Case 6: Fix YAML syntax and configure Mail.ru SMTP notifications"
+git push origin main
