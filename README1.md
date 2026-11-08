@@ -90,4 +90,23 @@ touch .circleci/config.yml
 # Добавление файлов в систему контроля версий, коммит и отправка на GitHub
 git add .circleci/config.yml README.md
 git commit -m "Case 3: Add CircleCI config for Heroku deployment"
+git push origin main 
+``` 
+## Кейс 4: Использование Docker в пайплайне CI/CD
+
+### 1. Описание проделанной работы (Алгоритм):
+* В корневой директории репозитория создан **`Dockerfile`** для контейнеризации приложения на базе Node.js.
+* Настроены этапы сборки контейнера, копирования исходного кода и установки зависимостей.
+* В сценарий автоматизации добавлена логика авторизации в реестре контейнеров Docker Hub, сборки тегированного Docker-образа и его отправки (`docker push`).
+* Определены шаги для безопасной работы с учетными данными через переменные окружения.
+
+### 2. Использованные команды:
+```bash
+# Создание Dockerfile в корне проекта
+touch Dockerfile
+
+# Сборка локального Docker-образа и отправка изменений в репозиторий
+docker build -t my-app:latest .
+git add Dockerfile README.md
+git commit -m "Case 4: Add Dockerfile and CI/CD pipeline integration"
 git push origin main

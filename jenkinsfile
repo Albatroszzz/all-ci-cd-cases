@@ -2,20 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Lint') {
             steps {
-                echo 'Сборка проекта в Jenkins...'
-                sh 'node -v'
+                echo 'Шаг 1: Проверка качества и синтаксиса кода (Linting)...'
             }
         }
         stage('Test') {
             steps {
-                echo 'Запуск тестов внутри Jenkins-агента...'
+                echo 'Шаг 2: Запуск автоматических юнит-тестов...'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Шаг 3: Сборка артефактов приложения...'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Успешное развертывание приложения!'
+                echo 'Шаг 4: Развертывание (Deploy) приложения...'
             }
         }
     }
