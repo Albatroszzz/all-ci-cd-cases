@@ -33,3 +33,4 @@ jobs:
             Результат выполнения пайплайна: ${{ job.status }}
             Репозиторий: ${{ github.repository }}
             Ветка: ${{ github.ref }}
+            
