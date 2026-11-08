@@ -15,22 +15,21 @@ jobs:
           node-version: '18'
 
       - name: Run a simple test message
-        run: echo "Пайплайн успешно запущен и работает!"/
-        
+        run: echo "Пайплайн успешно запущен и работает!"
+
       - name: Send Email Notification
-      if: always()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 465
-        secure: true
-        username: ${{ secrets.MAIL_USERNAME }}
-        password: ${{ secrets.MAIL_PASSWORD }}
-        subject: "CI/CD Pipeline Status: ${{ job.status }}"
-        to: user@example.com
-        from: GitHub Actions CI
-        body: |
-          Результат выполнения пайплайна: ${{ job.status }}
-          Репозиторий: ${{ github.repository }}
-          Ветка: ${{ github.ref }}
-    
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "CI/CD Pipeline Status: ${{ job.status }}"
+          to: user@example.com
+          from: GitHub Actions CI
+          body: |
+            Результат выполнения пайплайна: ${{ job.status }}
+            Репозиторий: ${{ github.repository }}
+            Ветка: ${{ github.ref }}
