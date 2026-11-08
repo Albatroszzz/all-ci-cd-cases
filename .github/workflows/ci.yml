@@ -19,17 +19,18 @@ jobs:
 
       - name: Send Email Notification
         if: always()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.mail.com
-          server_port: 465
-          secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "CI/CD Pipeline Status: ${{ job.status }}"
-          to: user@example.com
-          from: GitHub Actions CI
-          body: |
-            Результат выполнения пайплайна: ${{ job.status }}
-            Репозиторий: ${{ github.repository }}
-            Ветка: ${{ github.ref }}
+        run: |
+          curl --ssl-reqd \
+            --url 'smtps://smtp.mail.ru:465' \
+            --user '${{ secrets.MAIL_USERNAME }}:${{ secrets.MAIL_PASSWORD }}' \
+            --mail-from '${{ secrets.MAIL_USERNAME }}' \
+            --mail-rcpt 'artemeva.anastasya@inbox.ru' \
+            -T - «EOF
+          From: ${{ secrets.MAIL_USERNAME }}
+          To: artemeva.anastasya@inbox.ru
+          Subject: CI/CD Pipeline Status: ${{ job.status }}
+
+          Результат выполнения пайплайна: ${{ job.status }}
+          Репозиторий: ${{ github.repository }}
+          Ветка: ${{ github.ref }}
+          EOF
