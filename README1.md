@@ -49,7 +49,7 @@ git add .gitlab-ci.yml README.md
 git commit -m "Case 2: Add GitLab CI/CD pipeline configuration"
 git push origin main  
 ```
-## Кейс 3: Настройка непрерывной интеграции с использованием Jenkins
+## Кейс 5: Настройка непрерывной интеграции с использованием Jenkins
 
 ### 1. Описание проделанной работы (Алгоритм):
 * В корневой директории репозитория создан декларативный файл сценария автоматизации **`Jenkinsfile`**.
