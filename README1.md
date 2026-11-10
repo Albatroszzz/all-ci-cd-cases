@@ -156,3 +156,23 @@ git add .github/workflows/ci.yml
 git commit -m "Case 6: Add email notification via Mail.ru SMTP"
 git push origin main
 ```
+## Кейс 7: Интеграция с системой управления версиями (VCS) и релизы
+
+### 1. Описание проделанной работы:
+1. **Настройка прав доступа (Permissions):** Для корректной работы GitHub Actions с релизами в конфигурацию воркфлоу добавлены права `contents: write`.
+2. **Триггер по тегам:** Включен триггер автоматического запуска пайплайна при отправке тегов вида `v*`.
+3. **Создание архивов:** Настроен шаг запаковки проекта в архив `app-artifact.zip`.
+4. **Автоматический релиз и Changelog:** С помощью экшена `softprops/action-gh-release@v1` настроено создание релиза на GitHub при пуше тега с генерацией описания изменений и прикреплением архива.
+5. **Сохранение уведомлений:** Интегрирован функционал отправки отчетов на почту Mail.ru (`dawidd6/action-send-mail@v3`), срабатывающий при любых результатах выполнения пайплайна (`if: always()`).
+
+### 2. Использованные команды:
+```bash
+# Индексация и сохранение изменений в конфигурации
+git add .github/workflows/ci.yml
+git commit -m "Case 7: Complete VCS integration, release automation and notifications"
+git push origin main
+
+# Создание и отправка тега для релиза
+git tag v1.0.0
+git push origin v1.0.0
+```
