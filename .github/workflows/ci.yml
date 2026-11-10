@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # <--- Вот это разрешение решает проблему с лимитами и доступом для релизов
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
