@@ -1,6 +1,10 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -17,6 +21,20 @@ jobs:
       - name: Run a simple test message
         run: echo "Пайплайн успешно запущен и работает!"
 
+      - name: Create build archive
+        run: |
+          mkdir -p dist
+          zip -r dist/app-artifact.zip . -x ".git*" "node_modules/*"
+
+      - name: Release and Upload Artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/app-artifact.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Send Email Notification
         if: always()
         uses: dawidd6/action-send-mail@v3
@@ -32,4 +50,4 @@ jobs:
           body: |
             Результат выполнения пайплайна: ${{ job.status }}
             Репозиторий: ${{ github.repository }}
-            Ветка: ${{ github.ref }}
+            Ветка/Тег: ${{ github.ref }}
